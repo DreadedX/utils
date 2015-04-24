@@ -8,7 +8,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-public class Manifests {
+class Manifests {
 
 	public static String getName() {
 		Enumeration resEnum;
@@ -20,8 +20,8 @@ public class Manifests {
 					InputStream is = url.openStream();
 					if (is != null) {
 						Manifest manifest = new Manifest(is);
-						Attributes mainAttribs = manifest.getMainAttributes();
-						String name = mainAttribs.getValue("Application-Name");
+						Attributes mainAttributes = manifest.getMainAttributes();
+						String name = mainAttributes.getValue("Application-Name");
 						if(name != null) {
 							return name;
 						}
