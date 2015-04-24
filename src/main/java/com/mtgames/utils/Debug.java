@@ -10,24 +10,8 @@ public class Debug {
 	public final static int WARNING = 20;
 	public final static int ERROR   = 30;
 
-	private static int priority = -1;
-	private static boolean initialized = false;
-
-	public static void init() {
-		if(!initialized) {
-			if (Integer.getInteger("com.mtgames.debug") != null) {
-				priority = Integer.getInteger("com.mtgames.debug");
-			} else {
-				priority = WARNING;
-			}
-			initialized = true;
-		} else {
-			log("Debug is already initialized", WARNING);
-		}
-	}
-
 	public static void log(String message, int type) {
-		if (type < priority) {
+		if (type < Integer.getInteger("com.mtgames.debug")) {
 			return;
 		}
 
@@ -53,9 +37,5 @@ public class Debug {
 				System.exit(31);
 				break;
 		}
-	}
-
-	public static int getPriority() {
-		return priority;
 	}
 }

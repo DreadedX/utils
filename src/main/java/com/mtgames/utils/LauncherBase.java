@@ -1,44 +1,88 @@
 package com.mtgames.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.jar.Attributes;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-abstract public class LauncherBase {
+abstract public class LauncherBase extends Application{
+	private static final VBox   options = new VBox();
+	private static final String appName = Manifests.getName();
+	private static final Insets margins = new Insets(8, 8, 8, 8);
+	private static final Insets optionMargins = new Insets(4, 4, 4, 4);
 
-	public static void launcher() {
-		Debug.init();
-		Debug.log("Launching: " + getName(), Debug.LAUNCHER);
+	protected static void addOption(String labelText, Node option) {
+		Label label = new Label(labelText + ": ");
+
+		HBox hBox = new HBox();
+		hBox.getChildren().addAll(label, option);
+		hBox.setAlignment(Pos.CENTER);
+		HBox.setMargin(option, optionMargins);
+
+		options.getChildren().add(hBox);
 	}
 
-	public static String getName() {
-		Enumeration resEnum;
-		try {
-			resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
-			while (resEnum.hasMoreElements()) {
-				try {
-					URL url = (URL)resEnum.nextElement();
-					InputStream is = url.openStream();
-					if (is != null) {
-						Manifest manifest = new Manifest(is);
-						Attributes mainAttribs = manifest.getMainAttributes();
-						String name = mainAttribs.getValue("Application-Name");
-						if(name != null) {
-							return name;
-						}
-					}
-				}
-				catch (Exception e) {
-					// Silently ignore wrong manifests on classpath?
-				}
-			}
-		} catch (IOException e1) {
-			// Silently ignore wrong manifests on classpath?
+	protected abstract void run();
+
+	@Override public void start(Stage stage) throws Exception {
+		Label title = new Label(appName + " settings");
+		Label debugLabel = new Label("Debug mode: ");
+		CheckBox debug = new CheckBox();
+		Button launch = new Button("Launch");
+
+		BorderPane root = new BorderPane();
+		HBox debugHBox = new HBox();
+		//		HBox scaleHBox = new HBox();
+
+//		Adding title
+		root.setTop(title);
+
+//		Adding options
+		root.setCenter(options);
+		options.getChildren().add(debugHBox);
+			debugHBox.getChildren().addAll(debugLabel, debug);
+
+//		Adding launch button
+		root.setBottom(launch);
+
+//		Set alignment
+		BorderPane.setAlignment(title, Pos.CENTER);
+		options.setAlignment(Pos.TOP_CENTER);
+		debugHBox.setAlignment(Pos.CENTER);
+		BorderPane.setAlignment(launch, Pos.CENTER);
+
+//		Set margins
+		BorderPane.setMargin(title, margins);
+		BorderPane.setMargin(options, margins);
+			HBox.setMargin(debug, optionMargins);
+		BorderPane.setMargin(launch, margins);
+
+		Scene scene = new Scene(root, 500, 300);
+		stage.setScene(scene);
+		stage.setTitle(appName + " launcher");
+		stage.show();
+
+		if (System.getProperty("com.mtgames.debug") != null) {
+			debug.setSelected(Integer.getInteger("com.mtgames.debug") == 0);
 		}
-		return null;
+
+		launch.setDefaultButton(true);
+		launch.requestFocus();
+
+		title.getStyleClass().add("launcherTitle");
+		launch.getStyleClass().add("launchButton");
+
+		launch.setOnAction(event -> {
+			System.setProperty("com.mtgames.debug", String.valueOf(debug.isSelected() ? Debug.DEBUG : Debug.WARNING));
+			Debug.log("Launching: " + appName, Debug.LAUNCHER);
+			stage.close();
+			run();
+		});
 	}
 }
