@@ -84,5 +84,12 @@ abstract public class LauncherBase extends Application{
 			stage.close();
 			run();
 		});
+
+		if (Boolean.getBoolean("com.mtgames.launch")) {
+			System.setProperty("com.mtgames.debug", String.valueOf(debug.isSelected() ? Debug.DEBUG : Debug.WARNING));
+			Debug.log("Launching: " + appName, Debug.LAUNCHER);
+			stage.close();
+			run();
+		}
 	}
 }
