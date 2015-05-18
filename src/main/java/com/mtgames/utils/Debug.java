@@ -1,5 +1,6 @@
 package com.mtgames.utils;
 
+import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
 import java.io.FileNotFoundException;
@@ -49,7 +50,7 @@ public class Debug {
 	}
 
 	private static void println(String line) {
-		console.appendText(line + "\n");
+		Platform.runLater(() -> console.appendText(line + "\n"));
 		System.out.println(line);
 	}
 
