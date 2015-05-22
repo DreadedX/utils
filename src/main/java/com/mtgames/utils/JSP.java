@@ -11,10 +11,10 @@ import java.util.zip.GZIPInputStream;
 
 public class JSP {
 
-    Map<String, String> files = new HashMap<String, String>();
+    Map<String, String> files = new HashMap<>();
 
     public JSP(String path, boolean external) {
-        GZIPInputStream gzIn = null;
+        GZIPInputStream gzIn;
         try {
             if (external) {
                 gzIn = new GZIPInputStream(new FileInputStream(path));
@@ -44,16 +44,7 @@ public class JSP {
 
     public JSONObject get(String file) {
         String content = files.get(file + ".json");
-        Debug.log(content, Debug.DEBUG);
         JSONObject object = new JSONObject(content);
         return  object;
     }
-
-    public JSONObject getPart(String file, String objectName) {
-        JSONObject objectParent = get(file);
-        JSONObject object = objectParent.getJSONObject(objectName);
-        return object;
-    }
-
-
 }
