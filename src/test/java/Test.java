@@ -1,4 +1,5 @@
 import com.mtgames.utils.Debug;
+import com.mtgames.utils.JSP;
 import com.mtgames.utils.LauncherBase;
 import javafx.collections.FXCollections;
 import javafx.scene.control.CheckBox;
@@ -26,6 +27,9 @@ public class Test extends LauncherBase {
 		System.setProperty("com.mtgames.scale", String.valueOf(scale.getValue()));
 
 		Debug.log(String.valueOf(Integer.getInteger("com.mtgames.scale")), Debug.DEBUG);
+
+		JSP test = new JSP("test.jsp", true);
+		Debug.log(String.valueOf(test.getPart("entities", "0").getInt("x")), Debug.DEBUG);
 	}
 
 	@Override protected void consoleCommand(String command) {
