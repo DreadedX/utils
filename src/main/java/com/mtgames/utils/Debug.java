@@ -17,7 +17,7 @@ public class Debug {
 	//	Regular mode
 	public final static int WARNING  = 20;
 	public final static int ERROR = 30;
-	private static TextArea console = LauncherBase.consoleOut;
+	private static final TextArea console = LauncherBase.consoleOut;
 
 	public static void log(String message, int type) {
 		if (type < Integer.getInteger("com.mtgames.debug")) {

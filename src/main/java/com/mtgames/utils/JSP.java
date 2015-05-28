@@ -11,7 +11,7 @@ import java.util.zip.GZIPInputStream;
 
 public class JSP {
 
-    Map<String, String> files = new HashMap<>();
+    private final Map<String, String> files = new HashMap<>();
 
     public JSP(String path, boolean external) {
         GZIPInputStream gzIn;
@@ -44,7 +44,6 @@ public class JSP {
 
     public JSONObject get(String file) {
         String content = files.get(file + ".json");
-        JSONObject object = new JSONObject(content);
-        return  object;
+        return new JSONObject(content);
     }
 }
