@@ -10,14 +10,14 @@ import java.util.Date;
 
 public class Debug {
 	//	Debug mode
-	public final static int DEBUG    = 0;
+	public final static int      DEBUG    = 0;
 	//	Info mode
-	public final static int INFO     = 10;
-	public final static int LAUNCHER = 11;
+	public final static int      INFO     = 10;
+	public final static int      LAUNCHER = 11;
 	//	Regular mode
-	public final static int WARNING  = 20;
-	public final static int ERROR = 30;
-	private static final TextArea console = LauncherBase.consoleOut;
+	public final static int      WARNING  = 20;
+	public final static int      ERROR    = 30;
+	public static      TextArea console  = null;
 
 	public static void log(String message, int type) {
 		if (type < Integer.getInteger("com.mtgames.debug")) {
@@ -50,7 +50,9 @@ public class Debug {
 	}
 
 	private static void println(String line) {
-		Platform.runLater(() -> console.appendText(line + "\n"));
+		if (console != null) {
+			Platform.runLater(() -> console.appendText(line + "\n"));
+		}
 		System.out.println(line);
 	}
 

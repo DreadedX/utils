@@ -67,6 +67,7 @@ abstract public class LauncherBase extends Application{
 			debugHBox.getChildren().addAll(debugLabel, debug);
 
 //		Adding console stuff
+		Debug.console = consoleOut;
 		consoleOut.setEditable(false);
 		consolePane.setCenter(consoleOut);
 		consolePane.setBottom(consoleHBox);

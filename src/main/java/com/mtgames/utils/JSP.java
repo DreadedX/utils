@@ -44,6 +44,9 @@ public class JSP {
 
     public JSONObject get(String file) {
         String content = files.get(file + ".json");
+        if (content == null) {
+            content = "{}";
+        }
         return new JSONObject(content);
     }
 }

@@ -26,6 +26,7 @@ public class Test extends LauncherBase {
 		System.setProperty("com.mtgames.scale", String.valueOf(scale.getValue()));
 
 		Debug.log(String.valueOf(Integer.getInteger("com.mtgames.scale")), Debug.DEBUG);
+		Debug.log(System.getProperty("java.vm.name"), Debug.DEBUG);
 	}
 
 	@Override protected void consoleCommand(String command) {
