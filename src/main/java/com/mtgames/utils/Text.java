@@ -7,7 +7,7 @@ public class Text {
 		for (int i = 1; i <= 16; i++) {
 			if (msg.length() > maxLength * i) {
 				lastSpace = msg.lastIndexOf(" ", maxLength * i);
-				msg = msg.substring(0, lastSpace) + "\n" + msg.substring(lastSpace + 1);
+				msg = msg.substring(0, lastSpace) + "|" + msg.substring(lastSpace + 1);
 			}
 		}
 
