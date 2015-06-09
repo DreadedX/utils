@@ -46,6 +46,7 @@ public class JSP {
         String content = files.get(file + ".json");
         if (content == null) {
             content = "{}";
+            Debug.log(file + " was not found in JSP file", Debug.WARNING);
         }
         return new JSONObject(content);
     }
