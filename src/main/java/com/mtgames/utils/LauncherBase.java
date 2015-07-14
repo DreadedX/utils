@@ -33,6 +33,8 @@ abstract public class LauncherBase extends Application{
 	}
 
 	@Override public void start(Stage stage) throws Exception {
+		System.out.println("[INFO] Launcher(v1)");
+
 		Label debugLabel = new Label("Debug mode: ");
 		CheckBox debug = new CheckBox();
 		Button launch = new Button("Launch");
