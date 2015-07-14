@@ -123,7 +123,7 @@ abstract public class LauncherBase extends Application{
 
 		launch.setOnAction(event -> {
 			System.setProperty("com.mtgames.debug", String.valueOf(debug.isSelected() ? Debug.DEBUG : Debug.WARNING));
-			Debug.log("Launching: " + appName, Debug.LAUNCHER);
+			Debug.log("Launching: " + appName, Debug.INFO);
 			root.getSelectionModel().select(consoleTab);
 			optionsPane.setDisable(true);
 			log.setDisable(false);
@@ -135,7 +135,7 @@ abstract public class LauncherBase extends Application{
 
 		if (Boolean.getBoolean("com.mtgames.launch")) {
 			System.setProperty("com.mtgames.debug", String.valueOf(debug.isSelected() ? Debug.DEBUG : Debug.WARNING));
-			Debug.log("Launching: " + appName, Debug.LAUNCHER);
+			Debug.log("Launching: " + appName, Debug.INFO);
 			root.getSelectionModel().select(consoleTab);
 			optionsPane.setDisable(true);
 			log.setDisable(false);
